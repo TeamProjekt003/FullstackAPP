@@ -13,7 +13,7 @@ import Login from './component/pages/Login.jsx';
 import CreateTalent from './component/pages/CreateTalent.jsx';
 import axios from 'axios'
 import AllTalent from './component/pages/AllTalent.jsx';
-import UpdateTalent from './component/pages/UpdateTalent.jsx';
+
 import { jwtDecode } from "jwt-decode";
 
 function App() {
@@ -50,32 +50,7 @@ function App() {
     }).catch((error) => { console.log(error) })
   }
 
-  const updateTalent = (id, body) => {
-    axios.put(`http://127.0.0.1:5000/api/talents/${id}`, body).then((response) => {
-      console.log('Talent updated successfully', response.data)
-      setRefetsch(!refetsch)
-    }).catch((error) => { console.log(error) })
-  }
-
-  const searchByTitle = (title) => {
-    axios.get(`http://127.0.0.1:5000/api/talents/title/${title}`).then((response) => {
-      console.log(response.data)
-      setTalents(response.data)
-    })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
-
-  const searchByCategory = (category) => {
-    axios.get(`http://127.0.0.1:5000/api/talents/category/${category}`).then((response) => {
-      console.log(response.data)
-      setTalents(response.data)
-    })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
+ 
 
   
   useEffect(() => {
@@ -112,7 +87,7 @@ function App() {
         <Route path="/digital-marketting" element={<DigitalMarketting />} />
         <Route path="/addtalent" element={<CreateTalent add={postTalent} />}></Route>
         <Route path="/alltalent" element={<AllTalent talents={talents} change={onChange} delete={deleteTalent} />}></Route>
-        <Route path="/updatetalent/:id" element={<UpdateTalent talent={oneTalent} update={updateTalent} />}></Route>
+       
       </Routes>
       <Footer />
     </Router>
