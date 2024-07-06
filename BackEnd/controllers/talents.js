@@ -6,11 +6,11 @@ module.exports = {
     try {
       const talents = await Talent.findAll({
         order: [["createdAt", "DESC"]],
-        /*include: [
+        include: [
           {
-             model: Freelance, as: "talent", attributes: [["name", "email"]] ,
+             model: Freelance, as: "freelancer", attributes: ["name","email","adress","imageUrl","phoneNumber"] ,
           }
-        ]*/
+        ]
       });
       res.status(200).json(talents);
     } catch (error) {
@@ -30,7 +30,8 @@ module.exports = {
 
   getOneTalent: async (req, res) => {
     try {
-      const talent = await Talent.findByPk(req.params.id);
+      const talent = await Talent.findByPk(req.params.id)
+      ;
       res.status(200).json(talent);
     } catch (error) {
       res.status(500).send("Failed to load resource");

@@ -21,15 +21,15 @@ db.Client = require('./client.model')(sequelize, DataTypes)
 db.Freelance= require('./freelancer.model')(sequelize, DataTypes)
 db.Talent = require('./talents.model')(sequelize, DataTypes)
 
-/*db.Freelance.hasMany(db.Talent, {
+db.Freelance.hasMany(db.Talent, {
     foreignKey: "freelancer_id",
 });
 
 db.Talent.belongsTo(db.Freelance, {
-    as: "talent",
+    as: "freelancer",
     foreignKey: "freelancer_id",
     onDelete: "CASCADE",
-});*/
+});
 
 
 db.Client.belongsToMany(db.Talent, { through: 'ClientTalent' });

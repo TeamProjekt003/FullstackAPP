@@ -15,7 +15,7 @@ const CreateTalent = (props) => {
     const [file, setFile] = useState('')
     const [loading, setLoading] = useState(false)
     const [res, setRes] = useState({})
-    const [delivery,setDelivery]=useState("")
+    const [delivery, setDelivery] = useState("")
 
     console.log(imageUrl)
 
@@ -54,8 +54,8 @@ const CreateTalent = (props) => {
             <div className="max-w-md mx-auto bg-white p-8 rounded-lg ">
                 <div class="mb-4">
                     <label for="image" className="block text-gray-700 text-sm font-bold mb-2">Upload Image:</label>
-                    <img src={imageUrl} className='w-14 mt-6'/>
-                    <input type="file"  className="outline-none appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={(e) => setFile(e.target.files[0])} />
+                    <img src={imageUrl} className='w-14 mt-6' />
+                    <input type="file" className="outline-none appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={(e) => setFile(e.target.files[0])} />
                     <br />
                     <button class=" ml-28 mt-8 bg-[#108a00] hover:bg-[#3d9731] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={() => { handleUpload() }}>upload!</button>
                 </div>
@@ -92,10 +92,12 @@ const CreateTalent = (props) => {
                 </div>
                 <div class="mb-4">
                     <div class="relative">
-                        <label for="name" className="block text-gray-700 text-sm font-bold mb-2">Category:</label>
-                        <input type="text" className=" outline-none appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder=" Your Category" value={category} onChange={(e) => {
-                            setCategory(e.target.value)
-                        }} />
+                        <label for="name" className="block text-gray-700 text-sm font-bold mb-2"> Choose a Category:</label>
+                        <select onChange={(e)=>{setCategory(e.target.value)}} className=" outline-none appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="Digital Marketing" >Digital Marketing</option>
+                            <option value="Graphics & Design" >Graphics & Design</option>
+                            <option value="Programming & Tech" >Programming & Tech</option>
+                        </select>
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <i class="fas fa-user text-gray-400"></i>
                         </div>
@@ -133,9 +135,9 @@ const CreateTalent = (props) => {
                         price: price,
                         category: category,
                         rating: rating,
-                        delivery:delivery,
-                        freelancer_id: "1"
-                    },navigate('/alltalent'))
+                        delivery: delivery,
+                        freelancer_id: props.user.id
+                    }, navigate('/alltalent'))
                 }}>Create</button>
             </div>
 

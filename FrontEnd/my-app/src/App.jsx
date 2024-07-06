@@ -1,5 +1,5 @@
 import './App.css'
-import { BrowserRouter as Router, Route, Routes, useAsyncError } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import NavBar from './component/NavBar.jsx';
 import Home from './component/pages/Home.jsx';
@@ -85,7 +85,7 @@ function App() {
         <Route path="/programming" element={<Programming />} />
         <Route path="/graphics" element={<Graphics />} />
         <Route path="/digital-marketting" element={<DigitalMarketting />} />
-        <Route path="/addtalent" element={<CreateTalent add={postTalent} />}></Route>
+        <Route path="/addtalent" element={<CreateTalent add={postTalent} user={user} />}></Route>
         <Route path="/alltalent" element={<AllTalent talents={talents} change={onChange} delete={deleteTalent} />}></Route>
        
       </Routes>

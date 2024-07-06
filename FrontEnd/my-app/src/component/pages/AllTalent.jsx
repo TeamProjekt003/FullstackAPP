@@ -33,17 +33,21 @@ const AllTalent = (props) => {
             </div>
             <Alert open={open} onClose={() => setOpen(false)}>
                 <div className="text-center w-56">
-
                     <div className="mx-auto my-4 w-48">
-                        <h3 className="text-lg font-black text-gray-800">Confirm Delete</h3>
+                        <h3 className="text-lg font-bold text-gray-800">Confirm Delete</h3>
                         <p className="text-sm text-gray-500">
                             Are you sure you want to delete this item?
                         </p>
                     </div>
                     <div className="flex gap-4">
-                        <button className="btn btn-danger w-full" onClick={() => { props.delete(id) }}>Delete</button>
                         <button
-                            className="btn btn-light w-full"
+                            className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            onClick={() => { props.delete(id); setOpen(false); }}
+                        >
+                            Delete
+                        </button>
+                        <button
+                            className="w-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                             onClick={() => setOpen(false)}
                         >
                             Cancel
