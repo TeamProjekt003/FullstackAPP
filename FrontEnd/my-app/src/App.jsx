@@ -21,7 +21,7 @@ function App() {
   const [talents, setTalents] = useState([])
   const [refetsch, setRefetsch] = useState(false)
   const [user,setUser]=useState({})
-  const [oneTalent, setOneTalent] = useState({})
+
 
   const getTalents = () => {
     axios.get('http://127.0.0.1:5000/api/talents/getAll').then((response) => {
@@ -33,15 +33,7 @@ function App() {
       })
   }
 
-  const postTalent = (body) => {
-    axios.post('http://127.0.0.1:5000/api/talents/add', body).then((response) => {
-      console.log('Talent added successfully', response.data)
-      setRefetsch(!refetsch)
-    })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
+ 
 
   const deleteTalent = (id) => {
     axios.delete(`http://127.0.0.1:5000/api/talents/${id}`).then((response) => {
@@ -50,7 +42,7 @@ function App() {
     }).catch((error) => { console.log(error) })
   }
 
- 
+
 
   
   useEffect(() => {
@@ -68,8 +60,8 @@ function App() {
 
 
 
-  const onChange = (talent) => {
-    setOneTalent(talent)
+  const onChange = () => {
+    setRefetsch(!refetsch)
   }
 
   return (
@@ -85,8 +77,8 @@ function App() {
         <Route path="/programming" element={<Programming />} />
         <Route path="/graphics" element={<Graphics />} />
         <Route path="/digital-marketting" element={<DigitalMarketting />} />
-        <Route path="/addtalent" element={<CreateTalent add={postTalent} user={user} />}></Route>
-        <Route path="/alltalent" element={<AllTalent talents={talents} change={onChange} delete={deleteTalent} />}></Route>
+        <Route path="/addtalent" element={<CreateTalent  user={user}  change={onChange}/>}></Route>
+        <Route path="/alltalent" element={<AllTalent talents={talents}  delete={deleteTalent} />}></Route>
        
       </Routes>
       <Footer />

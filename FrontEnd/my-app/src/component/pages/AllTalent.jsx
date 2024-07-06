@@ -23,7 +23,7 @@ const AllTalent = (props) => {
                             <h5 className='text-[#505050] font-bold text-sm ml-6 '>From ${ele.price}</h5>
                         </div>
                         <div className=" flex items-center justify-center mt-4 gap-4 ">
-                            <button onClick={() => { props.change(ele) }} className="  bg-[#108a00] hover:bg-[#3d9731] text-white font-bold p-1 rounded focus:outline-none focus:shadow-outline">
+                            <button className="  bg-[#108a00] hover:bg-[#3d9731] text-white font-bold p-1 rounded focus:outline-none focus:shadow-outline">
                                 Update</button>
                             <button class=" bg-[#108a00] hover:bg-[#3d9731] text-white font-bold p-1 rounded focus:outline-none focus:shadow-outline"
                                 onClick={() => { setOpen(true), setId(ele.id) }}>Delete</button>

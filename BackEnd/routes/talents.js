@@ -5,7 +5,7 @@ const upload = require('../middleware/multer.js')
 
 
 const { getAllTalents, addTalent, getOneTalent, deleteTalent,
-    updateTalent, findByTitle, findByCategory } = require('../controllers/talents.js');
+    updateTalent, findByTitle, findByCategory, addTalent1 } = require('../controllers/talents.js');
 
 
 
@@ -17,19 +17,22 @@ router.put('/:id', updateTalent)
 router.get('/title/:title', findByTitle)
 router.get('/category/:category', findByCategory)
 
+
 async function handleUpload(file) {
     const res = await cloudinary.uploader.upload(file, {
         resource_type: "auto",
     });
-    return res
+    return res.secure_url
 }
 router.post("/upload", upload.single("my_file"), async (req, res) => {
-    
+
     try {
         const b64 = Buffer.from(req.file.buffer).toString("base64")
         let dataURI = "data:" + req.file.mimetype + ";base64," + b64
         const cldRes = await handleUpload(dataURI)
-        res.json(cldRes);
+        const imageUrl = await handleUpload(dataURI)
+        const newTalent = await addTalent1(req, res, imageUrl);
+        res.json(newTalent);
     } catch (error) {
         console.log(error);
         res.send({

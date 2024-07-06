@@ -8,7 +8,7 @@ module.exports = {
         order: [["createdAt", "DESC"]],
         include: [
           {
-             model: Freelance, as: "freelancer", attributes: ["name","email","adress","imageUrl","phoneNumber"] ,
+            model: Freelance, as: "freelancer", attributes: ["name", "email", "adress", "imageUrl", "phoneNumber"],
           }
         ]
       });
@@ -28,10 +28,36 @@ module.exports = {
     }
   },
 
+  addTalent1: async (req, res, imageUrl) => {
+    try {
+      // Create new talent with image URL
+      const newTalent = await Talent.create({
+        title: req.body.title,
+        description: req.body.description,
+        imageUrl: imageUrl, // Save the Cloudinary image URL
+        address: req.body.address,
+        category: req.body.category,
+        price: req.body.price,
+        rating: req.body.rating,
+        delivery: req.body.delivery,
+        freelancer_id: req.body.freelancer_id
+      });
+      
+      
+
+      // Respond with created talent
+      res.status(201).json(newTalent);
+    } catch (error) {
+      // Handle errors
+      console.error('Error adding talent:', error);
+      res.status(500).json({ error: error.message });
+    }
+  },
+
   getOneTalent: async (req, res) => {
     try {
       const talent = await Talent.findByPk(req.params.id)
-      ;
+        ;
       res.status(200).json(talent);
     } catch (error) {
       res.status(500).send("Failed to load resource");

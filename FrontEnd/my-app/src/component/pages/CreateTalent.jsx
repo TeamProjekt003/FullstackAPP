@@ -19,7 +19,7 @@ const CreateTalent = (props) => {
 
     console.log(imageUrl)
 
-    const uploadImage = async () => {
+    /*const uploadImage = async () => {
         const form = new FormData()
         form.append('file', file)
         form.append("upload_preset", "lobnasm")
@@ -32,33 +32,48 @@ const CreateTalent = (props) => {
             console.log(error)
         }
 
-    }
+    }*/
     const handleUpload = async () => {
         try {
-            setLoading(true)
-            const data = new FormData()
-            data.append("my_file", file)
-            const res = await axios.post("http://127.0.0.1:5000/api/talents/upload", data)
-            setRes(res.data)
+            setLoading(true);
+
+            const data = new FormData();
+            data.append("my_file", file);  // Assuming 'file' is defined elsewhere in your code
+
+            // Append other fields to the FormData object
+            data.append("title", title);
+            data.append("description", description);
+            data.append("imageUrl", imageUrl);
+            data.append("price", price);
+            data.append("category", category);
+            data.append("rating", rating);
+            data.append("delivery", delivery);
+            data.append("freelancer_id", props.user.id);
+
+            const config = {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            }
+            const res = await axios.post("http://127.0.0.1:5000/api/talents/upload", data, config)
+            setRes(res.data);
             setImageUrl(res.data.secure_url)
             console.log(res.data.secure_url)
+            console.log('Talent added successfully')
+            navigate("/alltalent")
+            props.change()
         } catch (error) {
             alert(error.message)
         } finally {
             setLoading(false)
         }
-    }
+    };
+
 
     return (
         <div className='flex flex-col'>
             <div className="max-w-md mx-auto bg-white p-8 rounded-lg ">
-                <div class="mb-4">
-                    <label for="image" className="block text-gray-700 text-sm font-bold mb-2">Upload Image:</label>
-                    <img src={imageUrl} className='w-14 mt-6' />
-                    <input type="file" className="outline-none appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={(e) => setFile(e.target.files[0])} />
-                    <br />
-                    <button class=" ml-28 mt-8 bg-[#108a00] hover:bg-[#3d9731] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={() => { handleUpload() }}>upload!</button>
-                </div>
+
                 <div class="mb-4">
                     <div class="relative">
                         <label for="name" className="block text-gray-700 text-sm font-bold mb-2">Title:</label>
@@ -93,7 +108,7 @@ const CreateTalent = (props) => {
                 <div class="mb-4">
                     <div class="relative">
                         <label for="name" className="block text-gray-700 text-sm font-bold mb-2"> Choose a Category:</label>
-                        <select onChange={(e)=>{setCategory(e.target.value)}} className=" outline-none appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <select onChange={(e) => { setCategory(e.target.value) }} className=" outline-none appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                             <option value="Digital Marketing" >Digital Marketing</option>
                             <option value="Graphics & Design" >Graphics & Design</option>
                             <option value="Programming & Tech" >Programming & Tech</option>
@@ -126,18 +141,15 @@ const CreateTalent = (props) => {
                         </div>
                     </div>
                 </div>
+                <div class="mb-4">
+                    <label for="image" className="block text-gray-700 text-sm font-bold mb-2">Upload Image:</label>
+                    <img src={imageUrl} className='w-14 mt-6' />
+                    <input type="file" className="outline-none appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={(e) => setFile(e.target.files[0])} />
+
+                </div>
 
                 <button class=" ml-28 mt-8 bg-[#108a00] hover:bg-[#3d9731] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" value="submit" onClick={() => {
-                    props.add({
-                        title: title,
-                        description: description,
-                        imageUrl: imageUrl,
-                        price: price,
-                        category: category,
-                        rating: rating,
-                        delivery: delivery,
-                        freelancer_id: props.user.id
-                    }, navigate('/alltalent'))
+                    handleUpload()
                 }}>Create</button>
             </div>
 
