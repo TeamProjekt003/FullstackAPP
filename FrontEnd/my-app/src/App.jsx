@@ -33,7 +33,6 @@ function App() {
       })
   }
 
- 
 
   const deleteTalent = (id) => {
     axios.delete(`http://127.0.0.1:5000/api/talents/${id}`).then((response) => {
@@ -57,7 +56,6 @@ function App() {
       setUser(decodedToken)
     }
   }, []);
-
 
 
   const onChange = () => {
