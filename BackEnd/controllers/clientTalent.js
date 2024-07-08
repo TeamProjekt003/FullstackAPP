@@ -37,7 +37,7 @@ module.exports={
                     {
                         model: Client,
                         as: 'clients',
-                        attributes: ["id", "name", "email", "adress", "imageUrl", "phoneNumber"], // Note: "adress" corrected to "address"
+                        attributes: ["id", "name", "email", "adress", "imageUrl", "phoneNumber"],
                     },
                     {
                         model: Talent,
