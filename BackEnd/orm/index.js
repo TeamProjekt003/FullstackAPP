@@ -49,6 +49,22 @@ db.Talent.belongsToMany(db.Client, {
     onDelete: 'CASCADE',
 });
 
+
+db.ClientTalent.belongsTo(db.Client,{
+    through:db.Client,
+    as:'clients',
+    foreignKey: 'clientId',
+    onDelete: 'CASCADE',
+})
+
+db.ClientTalent.belongsTo(db.Talent,{
+    through:db.Talent,
+    as:'talents',
+    foreignKey: 'talentId',
+    onDelete: 'CASCADE',
+})
+
+
 db.sequelize
     .authenticate()
     .then(() => console.log("Connection has been established successfully."))
