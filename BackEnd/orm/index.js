@@ -23,14 +23,17 @@ db.Talent = require('./talents.model')(sequelize, DataTypes)
 db.ClientTalent = require('./clientTalent.model')(sequelize, DataTypes)
 
 db.Freelance.hasMany(db.Talent, {
+    as:"talents",
     foreignKey: "freelancer_id",
-});
+    onDelete: "CASCADE",
+})
+
 
 db.Talent.belongsTo(db.Freelance, {
     as: "freelancer",
     foreignKey: "freelancer_id",
     onDelete: "CASCADE",
-});
+})
 
 
 // Client model association
